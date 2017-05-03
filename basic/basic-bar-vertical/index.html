@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>basic-bar-svg</title>
+    <script type="application/javascript" src="../lib/d3.js/d3.v4.min.js"></script>
+    <style>
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        #container{
+            width: 960px;
+            height: 600px;
+            margin: auto;
+            border: rgba(51,31,9,0.22) solid 1px;
+        }
+        .bar{
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <svg class="bar"></svg>
+</div>
+
+</body>
+<script type="application/javascript">
+    //定义图的宽高
+    var width = 810;
+    var height = 500;
+
+
+    //制作线性比例尺
+    var y = d3.scaleLinear()
+        .range([height, 0])
+
+    //得到svg的d3对象
+    var svg = d3.select('.bar')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('transform', function () {
+            return 'translate('+ (960 - width) / 2 +', '+ (600 - height) / 2 +')'
+        })
+
+    //异步获取数据并处理
+    d3.tsv('data.tsv', function (error, data) {
+        //完善比例尺
+        y.domain([0, d3.max(data, function (d) {
+            return Number(d.value);
+        })]);
+
+        //添加群组
+        var g = svg.selectAll('g')
+            .data(data)
+            .enter()
+            .append('g')
+            .attr('transform', function (d, i) {
+                return 'translate('+ (width / data.length) * i +', 0)';
+            });
+
+//        绘制柱形图
+        var rect = g.append('rect')
+            .attr('width', (width / data.length) - 3)
+            .attr('height', function (d) {
+                console.log(y(d.value));
+                return height - y(d.value);
+            })
+            .attr('y', function (d) {
+                return y(d.value);
+            })
+            .attr('fill', 'steelblue')
+
+
+    })
+
+
+//    //type 函数
+//    function type(d) {
+//
+//    }
+</script>
+</html>

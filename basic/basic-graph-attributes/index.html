@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>basic-bar-svg</title>
+    <script type="application/javascript" src="../lib/d3.js/d3.v4.min.js"></script>
+    <style>
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        #container{
+            width: 960px;
+            height: 600px;
+            margin: auto;
+        }
+        .links line {
+            stroke: #999;
+            stroke-opacity: .3;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <svg class="graph"></svg>
+</div>
+
+</body>
+<script type="application/javascript">
+    //svg width height
+    var width = 960;
+    var height = 600;
+
+    var test;
+
+    //定义节点
+
+     var node_data = [
+         {"name": "Lillian", "sex": "F"},
+         {"name": "Gordon", "sex": "M"},
+         {"name": "Sylvester", "sex": "M"},
+         {"name": "Mary", "sex": "F"},
+         {"name": "Helen", "sex": "F"},
+         {"name": "Jamie", "sex": "M"},
+         {"name": "Jessie", "sex": "F"},
+         {"name": "Ashton", "sex": "M"},
+         {"name": "Duncan", "sex": "M"},
+         {"name": "Evette", "sex": "F"},
+         {"name": "Mauer", "sex": "M"},
+         {"name": "Fray", "sex": "F"},
+         {"name": "Duke", "sex": "M"},
+         {"name": "Baron", "sex": "M"},
+         {"name": "Infante", "sex": "M"},
+         {"name": "Percy", "sex": "M"},
+         {"name": "Cynthia", "sex": "F"}
+     ];
+
+     //定义边
+     var link_data = [
+         {"source": "Sylvester", "target": "Gordon", "type":"A" },
+         {"source": "Sylvester", "target": "Lillian", "type":"A" },
+         {"source": "Sylvester", "target": "Mary", "type":"A"},
+         {"source": "Sylvester", "target": "Jamie", "type":"A"},
+         {"source": "Sylvester", "target": "Jessie", "type":"A"},
+         {"source": "Sylvester", "target": "Helen", "type":"A"},
+         {"source": "Helen", "target": "Gordon", "type":"A"},
+         {"source": "Mary", "target": "Lillian", "type":"A"},
+         {"source": "Ashton", "target": "Mary", "type":"A"},
+         {"source": "Duncan", "target": "Jamie", "type":"A"},
+         {"source": "Gordon", "target": "Jessie", "type":"A"},
+         {"source": "Sylvester", "target": "Fray", "type":"E"},
+         {"source": "Fray", "target": "Mauer", "type":"A"},
+         {"source": "Fray", "target": "Cynthia", "type":"A"},
+         {"source": "Fray", "target": "Percy", "type":"A"},
+         {"source": "Percy", "target": "Cynthia", "type":"A"},
+         {"source": "Infante", "target": "Duke", "type":"A"},
+         {"source": "Duke", "target": "Gordon", "type":"A"},
+         {"source": "Duke", "target": "Sylvester", "type":"A"},
+         {"source": "Baron", "target": "Duke", "type":"A"},
+         {"source": "Baron", "target": "Sylvester", "type":"E"},
+         {"source": "Evette", "target": "Sylvester", "type":"E"},
+         {"source": "Cynthia", "target": "Sylvester", "type":"E"},
+         {"source": "Cynthia", "target": "Jamie", "type":"E"},
+         {"source": "Mauer", "target": "Jessie", "type":"E"}
+     ];
+
+     //定义svg长和宽
+    var svg = d3.select('.graph')
+        .attr('width', width)
+        .attr('height', height)
+
+    // set up force simulation
+    var simulation = d3.forceSimulation()
+        .nodes(node_data);
+
+    // add two kinds of force 1. charge force 2. centering force
+    simulation
+        .force('charge_force', d3.forceManyBody().strength(-500).distanceMax(100))
+        .force('center_force', d3.forceCenter(width / 2, height / 2))
+
+
+    // create nodes
+    var nodes = svg.append('g')
+        .attr('class', 'nodes')
+        .selectAll('circle')
+        .data(node_data)
+        .enter()
+        .append('circle')
+        .attr('r', 10)
+        .attr('fill', nodes_color)
+
+    // nodes color function
+    function nodes_color(d) {
+        if(d.sex == 'M'){
+            return 'blue';
+        }else if (d.sex == 'F'){
+            return 'pink';
+        }
+    }
+
+    // add link force
+    var link_force = d3.forceLink(link_data)
+        .id(function (d) {
+            return d.name;
+        })
+
+    simulation
+        .force('link_force', link_force);
+
+    // create lines of links
+    var links = svg.append('g')
+        .attr('class', 'links')
+        .selectAll('line')
+        .data(link_data)
+        .enter()
+        .append('line')
+        .attr('stroke-width', 3)
+        .style('stroke', stroke_color)
+
+    // link color function
+    function stroke_color(d){
+        if(d.type == "A"){
+            return "green";
+        } else {
+            return "red";
+        }
+    }
+    
+    // create tickActions
+    function tickActions() {
+        nodes
+            .attr('cx', function (d) {
+                return d.x;
+            })
+            .attr('cy', function (d) {
+                return d.y;
+            });
+
+        links
+            .attr('x1', function (d) {
+                return d.source.x;
+            })
+            .attr('y1', function (d) {
+                return d.source.y;
+            })
+            .attr('x2', function (d) {
+                return d.target.x;
+            })
+            .attr('y2', function (d) {
+                return d.target.y;
+            })
+    }
+    
+    // create tick
+    simulation.on('tick', tickActions);
+
+    var drag_handler = d3.drag()
+        .on("start", drag_start)
+        .on("drag", drag_drag)
+        .on("end", drag_end);
+
+    //same as using .call on the node variable as in https://bl.ocks.org/mbostock/4062045
+    drag_handler(nodes)
+
+    //drag handler
+    //d is the node
+    function drag_start(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+
+    }
+
+    function drag_drag(d) {
+//        console.log(d);
+//        console.log(simulation.alpha());
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+//        console.log(d);
+    }
+
+
+    function drag_end(d) {
+//        console.log(simulation.alphaTarget());
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+
+    var zoom_handler = d3.zoom()
+        .on('zoom', zoom_actions);
+
+    function zoom_actions() {
+        console.log(d3.event.transform);
+        nodes.attr("transform", d3.event.transform);
+        links.attr("transform", d3.event.transform);
+    }
+
+    zoom_handler(svg);
+
+</script>
+</html>

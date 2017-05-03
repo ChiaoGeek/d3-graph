@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Chart</title>
+    <script type="application/javascript" src="../lib/d3.js/d3.v4.min.js"></script>
+    <style type="text/css">
+        .chart div{
+            font: 10px sans-serif;
+            background-color: steelblue;
+            text-align: right;
+            padding: 3px;
+            margin: 1px;
+            color: white;
+        }
+    </style>-
+</head>
+<body>
+    <div class="chart"></div>
+</body>
+<script type="application/javascript">
+    //初始数据集
+    var data = [4, 8, 15, 16, 23, 42];
+
+    //线性比例尺
+    var x = d3.scaleLinear()
+                .domain([0, d3.max(data)])
+                .range([0, 420])
+
+    //建立直方图
+    d3.select(".chart")
+        .selectAll('div')
+        .data(data)
+        .enter()
+        .append('div')
+            .style('width', function (d) {
+                return x(d) + "px";
+            })
+            .text(function (d) {
+                return d;
+            })
+
+</script>
+</html>

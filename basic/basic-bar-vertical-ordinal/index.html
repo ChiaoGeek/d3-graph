@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>basic-bar-svg</title>
+    <script type="application/javascript" src="../lib/d3.js/d3.v4.min.js"></script>
+    <style>
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        #container{
+            width: 960px;
+            height: 600px;
+            margin: auto;
+            border: rgba(51,31,9,0.22) solid 1px;
+        }
+        .bar{
+            margin: auto;
+        }
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <svg class="bar"></svg>
+</div>
+
+</body>
+<script type="application/javascript">
+
+    //定义svg图的宽高
+    var width = 960;
+    var height = 600;
+
+    //定义margin 对象
+    var margins = {
+        "top": 50,
+        "right": 75,
+        "bottom": 50,
+        "left": 75
+    }
+
+    //定义比例尺
+    var x = d3.scaleBand()
+        .range([0, width - margins.left - margins.right])
+        .paddingOuter(0.1)
+        .paddingInner(0.1)
+
+    var y = d3.scaleLinear()
+        .range([height - margins.top - margins.bottom, 0])
+
+    //定义SVG的属性、并生成分组
+    var svg_g = d3.select('.bar')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate('+ margins.left+', '+ margins.top +')');
+
+    //定义X坐标轴
+    var x_axis = d3.axisBottom(x);
+
+    //定义Y坐标轴
+    var y_axis = d3.axisLeft(y)
+        .ticks(10, '%');
+
+
+    //异步获取数据并处理
+    d3.tsv('data.tsv', type, function (data) {
+        //完善比例尺
+        x.domain(data.map(function (d) { return d.name }));
+        y.domain([0, d3.max(data, function (d) {
+            return Number(d.value);
+        })]);
+        console.log(y.domain());
+
+        //添加群组
+        var g = svg_g.selectAll('g')
+            .data(data)
+            .enter()
+            .append('g')
+            .attr('transform', function (d, i) {
+                console.log(i * x.step() - x.paddingOuter());
+                return 'translate('+ String(i * x.step() - x.paddingOuter()) +', 0)'
+            });
+
+         //添加rect
+        var rect = g.append('rect')
+            .attr('width', x.bandwidth())
+            .attr('height', function (d) {
+                return (height - margins.top - margins.bottom - y(d.value));
+            })
+            .attr('y', function (d) {
+                return y(d.value);
+            })
+            .attr('fill', 'steelblue');
+
+        //添加X轴
+        svg_g.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0, '+ String(height - margins.bottom - margins.top ) +')')
+            .call(x_axis);
+
+        //添加Y轴
+        svg_g.append('g')
+            .attr('class', 'y axis')
+            .call(y_axis);
+
+    });
+
+    function type(d) {
+        d.value = +d.value;
+        return d;
+    }
+
+</script>
+</html>

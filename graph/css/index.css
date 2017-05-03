@@ -1,0 +1,152 @@
+body{
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+#container {
+    width: 1200px;
+    height: 800px;
+    margin: auto;
+}
+
+#header{
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    background: -webkit-linear-gradient(rgb(157, 159, 161), rgb(77, 77, 77)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* 标准的语法（必须放在最后） */
+    -moz-box-shadow: 0px -5px 5px #000000 inset;             /* For Firefox3.6+ */
+    -webkit-box-shadow: 0px -5px 5px #000000 inset;          /* For Chrome5+, Safari5+ */
+    box-shadow: 0px -5px 5px #000000 inset;                  /* For Latest Opera */
+}
+#header img {
+    width: 30px;
+    vertical-align:middle;
+
+}
+#header span {
+    color: #873A21;
+    font-weight: 900;
+    font-size: 25px;
+}
+#header-down{
+    width: 100%;
+    height: 5px;
+    background-color: #000000;
+}
+
+#content{
+    width: 100%;
+    height: 700px;
+    -moz-box-shadow: 5px 0px 5px rgb(156, 156, 156) inset, -5px 0px 5px rgb(156, 156, 156) inset;             /* For Firefox3.6+ */
+    -webkit-box-shadow: 5px 0px 5px rgb(156, 156, 156)  inset, -5px 0px 5px rgb(156, 156, 156) inset;          /* For Chrome5+, Safari5+ */
+    box-shadow: 5px 0px 5px rgb(156, 156, 156) inset, -5px 0px 5px rgb(156, 156, 156) inset;                  /* For Latest Opera */
+}
+
+#left {
+    width: 80%;
+    height: 700px;
+    float: left;
+    -moz-box-shadow: -5px 0px 5px rgb(156, 156, 156) inset;             /* For Firefox3.6+ */
+    -webkit-box-shadow: -5px 0px 5px rgb(156, 156, 156) inset;          /* For Chrome5+, Safari5+ */
+    box-shadow:  -1px 0px 1px rgb(156, 156, 156) inset;                  /* For Latest Opera */
+}
+
+#left-down {
+    width: 100%;
+    height: 60px;
+    background-color: rgb(94, 94, 94);
+}
+#blank_one{
+    width: 100%;
+    height: 4px;
+}
+.ld-a {
+    width: 80px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    float: left;
+    margin-left: 20px;
+}
+.ld-img-span{
+    display: block;
+    background-color: rgb(189, 189, 190);
+    border: rgb(189, 189, 190) 1px solid;
+    box-shadow:  -2px 0px 2px rgb(156, 156, 156) inset,2px 0px 2px rgb(156, 156, 156) inset,0px 2px 2px rgb(156, 156, 156) inset, 0px -2px 2px rgb(156, 156, 156) inset;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+    text-align: center;
+    margin: auto;
+}
+
+.ld-a-img {
+    width: 20px;
+
+}
+
+.ld-a-span {
+    display: block;
+    font-size: 12px;
+    color: white;
+    font-weight: 600;
+}
+
+#operation {
+    width: 100%;
+    height: 630px;
+    /*background-color: antiquewhite;*/
+}
+
+#right {
+    width: 20%;
+    height: 700px;
+    float: right;
+    -moz-box-shadow: 5px 0px 5px rgb(156, 156, 156) inset;             /* For Firefox3.6+ */
+    -webkit-box-shadow: 5px 0px 5px rgb(156, 156, 156) inset;          /* For Chrome5+, Safari5+ */
+    box-shadow:  5px 0px 5px rgb(156, 156, 156) inset;                  /* For Latest Opera */
+
+}
+.right-div{
+    width: 100%;
+    height: 300px;
+}
+.rd-top{
+    width: 100%;
+    height: 28px;
+    background: -webkit-linear-gradient(rgb(157, 159, 161), rgb(77, 77, 77)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* 标准的语法（必须放在最后） */
+}
+.rd-down{
+    width: 100%;
+    height: 280px;
+}
+
+#footer {
+    width: 100%;
+    height: 15px;
+    background: -webkit-linear-gradient(rgb(157, 159, 161), rgb(77, 77, 77)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(rgb(157, 159, 161),  rgb(77, 77, 77)); /* 标准的语法（必须放在最后） */
+    -moz-box-shadow: 0px -5px 5px rgb(91, 91, 91) inset;             /* For Firefox3.6+ */
+    -webkit-box-shadow: 0px -5px 5px rgb(91, 91, 91) inset;          /* For Chrome5+, Safari5+ */
+    box-shadow: 0px -5px 5px rgb(91, 91, 91) inset;                  /* For Latest Opera */
+
+}
+
+/*!*svg 节点字体*!*/
+/*.svg-npde-font{*/
+    /*font-size: 10px;*/
+    /*opacity: 1;*/
+/*}*/
+.node {
+    cursor: move;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScholarEye</title>
+    <script type="application/javascript" src="../lib/d3.js/d3.v4.min.js"></script>
+    <script type="application/javascript" src="../js/fishnet.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <img src="../img/anchor.png" >
+        <span>ScholarEye</span>
+    </div>
+    <div id="header-down"></div>
+    <div id="content">
+        <div id="left">
+            <div id="left-down">
+                <div id="blank_one"></div>
+                <div id="ld-content">
+                    <a class="ld-a" href=""#>
+                        <span class="ld-img-span">
+                            <div style="width: 100%;height: 8px;"></div>
+                            <img class="ld-a-img" src="../img/zoomin.png" alt="">
+                        </span>
+                        <span class="ld-a-span">放大布局</span>
+                    </a>
+                    <a class="ld-a" href=""#>
+                        <span class="ld-img-span">
+                            <div style="width: 100%;height: 8px;"></div>
+                            <img class="ld-a-img" src="../img/zoomout.png" alt="">
+                        </span>
+                        <span class="ld-a-span">缩小布局</span>
+                    </a>
+                    <a class="ld-a" href=""#>
+                        <span class="ld-img-span">
+                            <div style="width: 100%;height: 8px;"></div>
+                            <img class="ld-a-img" src="../img/force.png" alt="">
+                        </span>
+                        <span class="ld-a-span">力导布局</span>
+                    </a>
+                    <a class="ld-a" href=""#>
+                        <span class="ld-img-span">
+                            <div style="width: 100%;height: 8px;"></div>
+                            <img class="ld-a-img" src="../img/net.png" alt="">
+                        </span>
+                        <span class="ld-a-span">网状布局</span>
+                    </a>
+                    <a class="ld-a" href=""#>
+                        <span class="ld-img-span">
+                            <div style="width: 100%;height: 8px;"></div>
+                            <img class="ld-a-img" src="../img/hia.png" alt="">
+                        </span>
+                        <span class="ld-a-span">层次布局</span>
+                    </a>
+
+                </div>
+            </div>
+
+            <div id="operation">
+                <svg id="svg"></svg>
+            </div>
+        </div>
+        <div id="right">
+            <div class="right-div">
+                <div class="rd-top"></div>
+                <div class="rd-down">
+                    1.<span draggable="true" name="方滨兴" class="drag-dom">方滨兴</span><br>
+                    2.<span draggable="true" name="孟丹" class="drag-dom">孟丹</span><br>
+                    3.<span draggable="true" name="郭莉" class="drag-dom">郭莉</span><br>
+
+                </div>
+            </div>
+            <div class="right-div">
+                <div class="rd-top"></div>
+                <div class="rd-down" id="rd2-down"></div>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</div>
+<svg id="hidden-svg" width="100" height="40" style="position: absolute;left: -100px;top: -100px;"></svg>
+</body>
+<script type="application/javascript" src="../js/index.js"></script>
+</html>
